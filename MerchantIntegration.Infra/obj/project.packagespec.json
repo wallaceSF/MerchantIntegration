@@ -1,0 +1,47 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/MerchantIntegration.Infra.csproj",
+    "projectName": "MerchantIntegration.Infra",
+    "projectPath": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/MerchantIntegration.Infra.csproj",
+    "outputPath": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp3.1"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "projectReferences": {
+          "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Core/MerchantIntegration.Core.csproj": {
+            "projectPath": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Core/MerchantIntegration.Core.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp3.1": {
+      "imports": [
+        "net461",
+        "net462",
+        "net47",
+        "net471",
+        "net472",
+        "net48"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}
