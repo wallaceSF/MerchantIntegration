@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "MerchantIntegration.Infra/1.0.0": {
+        "dependencies": {
+          "MerchantIntegration.Core": "1.0.0"
+        },
+        "runtime": {
+          "MerchantIntegration.Infra.dll": {}
+        }
+      },
+      "MerchantIntegration.Core/1.0.0": {
+        "runtime": {
+          "MerchantIntegration.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MerchantIntegration.Infra/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MerchantIntegration.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

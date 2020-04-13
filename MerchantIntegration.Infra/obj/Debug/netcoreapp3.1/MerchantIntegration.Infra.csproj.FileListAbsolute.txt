@@ -1,0 +1,12 @@
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/bin/Debug/netcoreapp3.1/MerchantIntegration.Infra.deps.json
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/bin/Debug/netcoreapp3.1/MerchantIntegration.Infra.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/bin/Debug/netcoreapp3.1/MerchantIntegration.Infra.pdb
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/bin/Debug/netcoreapp3.1/MerchantIntegration.Core.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/bin/Debug/netcoreapp3.1/MerchantIntegration.Core.pdb
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/Debug/netcoreapp3.1/MerchantIntegration.Infra.csprojAssemblyReference.cache
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/Debug/netcoreapp3.1/MerchantIntegration.Infra.csproj.CoreCompileInputs.cache
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/Debug/netcoreapp3.1/MerchantIntegration.Infra.AssemblyInfoInputs.cache
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/Debug/netcoreapp3.1/MerchantIntegration.Infra.AssemblyInfo.cs
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/Debug/netcoreapp3.1/MerchantIntegration.Infra.csproj.CopyComplete
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/Debug/netcoreapp3.1/MerchantIntegration.Infra.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/obj/Debug/netcoreapp3.1/MerchantIntegration.Infra.pdb
