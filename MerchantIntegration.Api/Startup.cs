@@ -21,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 using CustomerService = MerchantIntegration.Core.CustomerService;
 using CustomerServiceInfra = MerchantIntegration.Infra.Gateway.Mundipagg.Service.CustomerService;
 
@@ -54,16 +55,21 @@ namespace MerchantIntegration.Api
             
             
 
-            services.AddSingleton<IMongoConnection>(p =>
+            services.AddSingleton<IMongoDatabase>(p =>
             {
                 var client = new MongoClient(settings.ConnectionString);
                 var database = client.GetDatabase(settings.DatabaseName);
-
+             
                 return database;
             });
             
             services.AddSingleton<IGatewayCustomerService, CustomerServiceInfra>();
-            services.AddSingleton<ICustomerRepository, CustomerRepository>();
+          //  services.AddSingleton<ICustomerRepository, CustomerRepository>();
+            services.AddSingleton<ICustomerRepository, CustomerRepository>(x =>
+            {
+                var connectionMongo = (IMongoDatabase) x.GetService(typeof(IMongoDatabase));
+                return new CustomerRepository(connectionMongo);
+            });
 
             //services.AddScoped<IConnectionMongoSettings, ConnectionMongoSettings>();
             services.AddScoped<ICustomerService>(sp =>

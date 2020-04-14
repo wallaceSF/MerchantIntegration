@@ -8,4 +8,9 @@
       <ProjectReference Include="..\MerchantIntegration.Core\MerchantIntegration.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="2.10.3" />
+      <PackageReference Include="MongoDB.Driver.Core" Version="2.10.3" />
+    </ItemGroup>
+
 </Project>

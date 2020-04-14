@@ -28,5 +28,10 @@ namespace MerchantIntegration.Core
         {
             return _customerRepository.find(id);
         }
+        
+        public Customer Create(Customer customer)
+        {
+            return _customerRepository.Create(customer);
+        }
     }
 }

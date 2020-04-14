@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MerchantIntegration.Core;
 using MerchantIntegration.Core.Contracts.Domain.Service;
+using MerchantIntegration.Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -34,6 +35,14 @@ namespace MerchantIntegration.Api.Controllers
             CoreService.getTeste();
             
            var z =  CoreService.Find(1);
+           var m = new Customer()
+           {
+                Name = "josé",
+                GatewayCustomerId = "cus_87389789",
+                Code = "378937893"
+                
+           };
+           var zz =  CoreService.Create(m);
             
             
             

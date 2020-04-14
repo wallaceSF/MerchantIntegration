@@ -1,10 +1,11 @@
 using System;
+using MongoDB.Bson;
 
 namespace MerchantIntegration.Core.Entity
 {
     public class Customer
     {
-        public int Id { get; set; }
+        public ObjectId Id { get; set; }
         public string GatewayCustomerId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }

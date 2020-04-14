@@ -13,6 +13,7 @@
         <e p="Controllers" t="Include">
           <e p="WeatherForecastController.cs" t="Include" />
         </e>
+        <e p="IMongoConnection.cs" t="Include" />
         <e p="MerchantIntegration.Api.csproj" t="IncludeRecursive" />
         <e p="Model" t="Include">
           <e p="ConnectionMongoSettings.cs" t="Include" />
@@ -84,6 +85,7 @@
         </e>
         <e p="MerchantIntegration.Infra.csproj" t="IncludeRecursive" />
         <e p="Repository" t="Include">
+          <e p="BaseRepository.cs" t="Include" />
           <e p="CustomerRepository.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />

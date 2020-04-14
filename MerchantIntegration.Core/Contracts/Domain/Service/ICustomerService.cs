@@ -7,5 +7,6 @@ namespace MerchantIntegration.Core.Contracts.Domain.Service
         string getTeste();
 
         Customer Find(int id);
+        Customer Create(Customer customer);
     }
 }

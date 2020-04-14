@@ -23,3 +23,9 @@
 /home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MerchantIntegration.Core.pdb
 /home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MerchantIntegration.Infra.pdb
 /home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/obj/Debug/netcoreapp3.1/MerchantIntegration.Api.csproj.CopyComplete
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/DnsClient.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MongoDB.Bson.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MongoDB.Driver.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MongoDB.Driver.Core.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MongoDB.Libmongocrypt.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/SharpCompress.dll
