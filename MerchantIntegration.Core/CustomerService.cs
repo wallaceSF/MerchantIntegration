@@ -31,7 +31,8 @@ namespace MerchantIntegration.Core
         
         public Customer Create(Customer customer)
         {
-            return _customerRepository.Create(customer);
+            var customerCreated = GatewayService.CreateCustomerAtGateway(customer);
+            return _customerRepository.Create(customerCreated);
         }
     }
 }
