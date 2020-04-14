@@ -4,5 +4,10 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MerchantIntegration.Core\MerchantIntegration.Core.csproj" />
+      <ProjectReference Include="..\MerchantIntegration.Infra\MerchantIntegration.Infra.csproj" />
+    </ItemGroup>
+
 
 </Project>

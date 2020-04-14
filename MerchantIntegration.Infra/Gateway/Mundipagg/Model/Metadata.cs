@@ -1,4 +1,4 @@
-namespace MerchantIntegration.Infra.Gateway.Model
+namespace MerchantIntegration.Infra.Gateway.Mundipagg.Model
 {
     public class Metadata
     {

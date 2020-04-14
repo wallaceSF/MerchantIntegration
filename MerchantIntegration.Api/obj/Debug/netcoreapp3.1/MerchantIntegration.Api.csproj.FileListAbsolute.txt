@@ -18,3 +18,8 @@
 /home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/obj/Debug/netcoreapp3.1/MerchantIntegration.Api.dll
 /home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/obj/Debug/netcoreapp3.1/MerchantIntegration.Api.pdb
 /home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/obj/Debug/netcoreapp3.1/MerchantIntegration.Api.genruntimeconfig.cache
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MerchantIntegration.Core.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MerchantIntegration.Infra.dll
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MerchantIntegration.Core.pdb
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/bin/Debug/netcoreapp3.1/MerchantIntegration.Infra.pdb
+/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Api/obj/Debug/netcoreapp3.1/MerchantIntegration.Api.csproj.CopyComplete

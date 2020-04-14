@@ -7,10 +7,16 @@
     <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_MerchantIntegration.286808712.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MerchantIntegration.Api" t="IncludeRecursive">
+        <e p="Contracts" t="Include">
+          <e p="IConnectionMongoSettings.cs" t="Include" />
+        </e>
         <e p="Controllers" t="Include">
           <e p="WeatherForecastController.cs" t="Include" />
         </e>
         <e p="MerchantIntegration.Api.csproj" t="IncludeRecursive" />
+        <e p="Model" t="Include">
+          <e p="ConnectionMongoSettings.cs" t="Include" />
+        </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
@@ -30,6 +36,22 @@
       </e>
       <e p="MerchantIntegration.Core" t="IncludeRecursive">
         <e p="Class1.cs" t="Include" />
+        <e p="Contracts" t="Include">
+          <e p="Domain" t="Include">
+            <e p="Service" t="Include">
+              <e p="ICustomerService.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Infrastruture" t="Include">
+            <e p="Repository" t="Include">
+              <e p="ICustomerRepository.cs" t="Include" />
+            </e>
+            <e p="Service" t="Include">
+              <e p="IGatewayCustomerService.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="CustomerService.cs" t="Include" />
         <e p="Entity" t="Include">
           <e p="Customer.cs" t="Include" />
         </e>
@@ -46,18 +68,24 @@
       <e p="MerchantIntegration.Infra" t="IncludeRecursive">
         <e p="Class1.cs" t="Include" />
         <e p="Gateway" t="Include">
-          <e p="GatewayService.cs" t="Include" />
-          <e p="Model" t="Include">
-            <e p="Address.cs" t="Include" />
-            <e p="Customer.cs" t="Include" />
-            <e p="HomePhone.cs" t="Include" />
-            <e p="Metadata.cs" t="Include" />
-            <e p="MobilePhone.cs" t="Include" />
-            <e p="Phone.cs" t="Include" />
+          <e p="Mundipagg" t="Include">
+            <e p="Model" t="Include">
+              <e p="Address.cs" t="Include" />
+              <e p="Customer.cs" t="Include" />
+              <e p="HomePhone.cs" t="Include" />
+              <e p="Metadata.cs" t="Include" />
+              <e p="MobilePhone.cs" t="Include" />
+              <e p="Phone.cs" t="Include" />
+            </e>
+            <e p="Service" t="Include">
+              <e p="CustomerService.cs" t="Include" />
+            </e>
           </e>
         </e>
         <e p="MerchantIntegration.Infra.csproj" t="IncludeRecursive" />
-        <e p="Repository" t="Include" />
+        <e p="Repository" t="Include">
+          <e p="CustomerRepository.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

@@ -5,10 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Repository" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\MerchantIntegration.Core\MerchantIntegration.Core.csproj" />
     </ItemGroup>
 

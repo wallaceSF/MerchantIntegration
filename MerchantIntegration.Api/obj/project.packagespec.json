@@ -17,7 +17,14 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "projectReferences": {}
+        "projectReferences": {
+          "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Core/MerchantIntegration.Core.csproj": {
+            "projectPath": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Core/MerchantIntegration.Core.csproj"
+          },
+          "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/MerchantIntegration.Infra.csproj": {
+            "projectPath": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/MerchantIntegration.Infra.csproj"
+          }
+        }
       }
     },
     "warningProperties": {

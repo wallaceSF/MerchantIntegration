@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "MerchantIntegration.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/MerchantIntegration.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MerchantIntegration.Core.dll": {}
+        }
+      },
+      "MerchantIntegration.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "MerchantIntegration.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/MerchantIntegration.Infra.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MerchantIntegration.Infra.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "MerchantIntegration.Core/1.0.0": {
+      "type": "project",
+      "path": "../MerchantIntegration.Core/MerchantIntegration.Core.csproj",
+      "msbuildProject": "../MerchantIntegration.Core/MerchantIntegration.Core.csproj"
+    },
+    "MerchantIntegration.Infra/1.0.0": {
+      "type": "project",
+      "path": "../MerchantIntegration.Infra/MerchantIntegration.Infra.csproj",
+      "msbuildProject": "../MerchantIntegration.Infra/MerchantIntegration.Infra.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "MerchantIntegration.Core >= 1.0.0",
+      "MerchantIntegration.Infra >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/wsferreira/.nuget/packages/": {},
@@ -34,7 +72,14 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Core/MerchantIntegration.Core.csproj": {
+              "projectPath": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Core/MerchantIntegration.Core.csproj"
+            },
+            "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/MerchantIntegration.Infra.csproj": {
+              "projectPath": "/home/wsferreira/RiderProjects/MerchantIntegration/MerchantIntegration.Infra/MerchantIntegration.Infra.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
