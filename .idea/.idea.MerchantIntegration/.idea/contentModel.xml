@@ -8,12 +8,12 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MerchantIntegration.Api" t="IncludeRecursive">
         <e p="Contracts" t="Include">
+          <e p="GatewayConfig.cs" t="Include" />
           <e p="IConnectionMongoSettings.cs" t="Include" />
         </e>
         <e p="Controllers" t="Include">
-          <e p="WeatherForecastController.cs" t="Include" />
+          <e p="CustomerController.cs" t="Include" />
         </e>
-        <e p="IMongoConnection.cs" t="Include" />
         <e p="MerchantIntegration.Api.csproj" t="IncludeRecursive" />
         <e p="Model" t="Include">
           <e p="ConnectionMongoSettings.cs" t="Include" />
@@ -36,7 +36,6 @@
         </e>
       </e>
       <e p="MerchantIntegration.Core" t="IncludeRecursive">
-        <e p="Class1.cs" t="Include" />
         <e p="Contracts" t="Include">
           <e p="Domain" t="Include">
             <e p="Service" t="Include">
@@ -49,6 +48,7 @@
             </e>
             <e p="Service" t="Include">
               <e p="IGatewayCustomerService.cs" t="Include" />
+              <e p="ILogInfo.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -87,6 +87,13 @@
         <e p="Repository" t="Include">
           <e p="BaseRepository.cs" t="Include" />
           <e p="CustomerRepository.cs" t="Include" />
+        </e>
+        <e p="SeedWork" t="Include">
+          <e p="SnakeJsonSerializerStrategy.cs" t="Include" />
+          <e p="TransformRequestToGateway.cs" t="Include" />
+        </e>
+        <e p="Service" t="Include">
+          <e p="LogInfo.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

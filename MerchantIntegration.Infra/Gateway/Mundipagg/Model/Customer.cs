@@ -2,7 +2,9 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Model
 {
     public class Customer
     {
-        public string name { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
         public string email { get; set; }
         public string type { get; set; }
         public string document { get; set; }

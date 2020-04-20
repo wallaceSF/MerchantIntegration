@@ -1,5 +1,4 @@
-using MerchantIntegration.Core.Contracts;
-using MerchantIntegration.Core.Contracts.Infrastruture;
+using System.Collections.Generic;
 using MerchantIntegration.Core.Contracts.Domain.Service;
 using MerchantIntegration.Core.Contracts.Infrastruture.Repository;
 using MerchantIntegration.Core.Contracts.Infrastruture.Service;
@@ -10,29 +9,35 @@ namespace MerchantIntegration.Core
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
-        public IGatewayCustomerService GatewayService { get; }
+        private readonly ILogInfo _logInfo;
+        private IGatewayCustomerService GatewayService { get; }
 
-        public CustomerService(IGatewayCustomerService gatewayService, ICustomerRepository customerRepository)
+        public CustomerService(IGatewayCustomerService gatewayService, ICustomerRepository customerRepository, ILogInfo logInfo)
         {
             _customerRepository = customerRepository;
+            _logInfo = logInfo;
             GatewayService = gatewayService;
         }
 
-        public string getTeste()
+        public Customer Find(string id)
         {
-            var z = GatewayService.gt();
-            return "funciona cara";
-        }
-
-        public Customer Find(int id)
-        {
-            return _customerRepository.find(id);
+            return _customerRepository.Find(id);
         }
         
         public Customer Create(Customer customer)
         {
-            var customerCreated = GatewayService.CreateCustomerAtGateway(customer);
-            return _customerRepository.Create(customerCreated);
+          //  var z = new LogInfo();
+         //   z.InfoMessage<Customer>("teste", customer);
+         
+         _logInfo.InfoMessage<Customer>("erro aqui", customer);
+            
+            var customerCreatedAtGateway = GatewayService.CreateCustomerAtGateway(customer);
+            return _customerRepository.Create(customerCreatedAtGateway);
+        }
+
+        public List<Customer> FindAll()
+        {
+            return _customerRepository.FindAll();
         }
     }
 }
