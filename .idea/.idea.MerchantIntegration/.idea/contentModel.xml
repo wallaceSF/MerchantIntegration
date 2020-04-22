@@ -67,7 +67,6 @@
         </e>
       </e>
       <e p="MerchantIntegration.Infra" t="IncludeRecursive">
-        <e p="Class1.cs" t="Include" />
         <e p="Gateway" t="Include">
           <e p="Mundipagg" t="Include">
             <e p="Model" t="Include">
@@ -89,6 +88,7 @@
           <e p="CustomerRepository.cs" t="Include" />
         </e>
         <e p="SeedWork" t="Include">
+          <e p="SnakeCaseNamingPolicy.cs" t="Include" />
           <e p="SnakeJsonSerializerStrategy.cs" t="Include" />
           <e p="TransformRequestToGateway.cs" t="Include" />
         </e>

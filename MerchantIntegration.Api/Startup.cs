@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using MerchantIntegration.Api.Contracts;
@@ -15,6 +16,7 @@ using MerchantIntegration.Core.Entity;
 using MerchantIntegration.Infra.Gateway;
 using MerchantIntegration.Infra.Gateway.Mundipagg;
 using MerchantIntegration.Infra.Repository;
+using MerchantIntegration.Infra.SeedWork;
 using MerchantIntegration.Infra.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +27,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using Newtonsoft.Json.Serialization;
 using RestSharp;
 using Serilog;
 using Serilog.Core;
@@ -46,7 +49,11 @@ namespace MerchantIntegration.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(
+                options => {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = 
+                        SnakeCaseNamingPolicy.Instance;
+                });
 
             var mapperConfiguration = new MapperConfiguration(
                 cfg =>
