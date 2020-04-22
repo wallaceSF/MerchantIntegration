@@ -1,4 +1,3 @@
-using System;
 using MerchantIntegration.Core.Contracts.Infrastruture.Service;
 using ILogger = Serilog.ILogger;
 
@@ -8,12 +7,12 @@ namespace MerchantIntegration.Infra.Service
     {
         private readonly ILogger _log;
 
-        public LogInfo(Serilog.ILogger log)
+        public LogInfo(ILogger log)
         {
             _log = log;
         }
 
-        public void InfoMessage<T>(string message, T objectValue) where T : class
+        public void InfoMessage<T>(T objectValue) where T : class
         {
             var objectName = objectValue.GetType().Name;
             var messageString = "message, {@"+objectName+"}!";

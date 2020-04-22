@@ -1,5 +1,3 @@
-using System.Security.Policy;
-
 namespace MerchantIntegration.Api.Contracts
 {
     public class GatewayConfig

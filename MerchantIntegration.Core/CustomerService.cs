@@ -12,8 +12,11 @@ namespace MerchantIntegration.Core
         private readonly ILogInfo _logInfo;
         private IGatewayCustomerService GatewayService { get; }
 
-        public CustomerService(IGatewayCustomerService gatewayService, ICustomerRepository customerRepository, ILogInfo logInfo)
-        {
+        public CustomerService(
+            IGatewayCustomerService gatewayService,
+            ICustomerRepository customerRepository,
+            ILogInfo logInfo
+        ) {
             _customerRepository = customerRepository;
             _logInfo = logInfo;
             GatewayService = gatewayService;
@@ -23,14 +26,11 @@ namespace MerchantIntegration.Core
         {
             return _customerRepository.Find(id);
         }
-        
+
         public Customer Create(Customer customer)
         {
-          //  var z = new LogInfo();
-         //   z.InfoMessage<Customer>("teste", customer);
-         
-         _logInfo.InfoMessage<Customer>("erro aqui", customer);
-            
+            _logInfo.InfoMessage(customer);
+
             var customerCreatedAtGateway = GatewayService.CreateCustomerAtGateway(customer);
             return _customerRepository.Create(customerCreatedAtGateway);
         }

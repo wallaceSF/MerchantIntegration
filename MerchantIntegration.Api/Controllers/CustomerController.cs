@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MerchantIntegration.Core;
+﻿using System.Collections.Generic;
 using MerchantIntegration.Core.Contracts.Domain.Service;
 using MerchantIntegration.Core.Entity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace MerchantIntegration.Api.Controllers
 {

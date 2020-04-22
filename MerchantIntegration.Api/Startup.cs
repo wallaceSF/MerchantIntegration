@@ -1,36 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 using AutoMapper;
 using MerchantIntegration.Api.Contracts;
 using MerchantIntegration.Api.Model;
-using MerchantIntegration.Core;
-using MerchantIntegration.Core.Contracts;
-using MerchantIntegration.Core.Contracts.Infrastruture;
 using MerchantIntegration.Core.Contracts.Domain.Service;
 using MerchantIntegration.Core.Contracts.Infrastruture.Repository;
 using MerchantIntegration.Core.Contracts.Infrastruture.Service;
 using MerchantIntegration.Core.Entity;
-using MerchantIntegration.Infra.Gateway;
-using MerchantIntegration.Infra.Gateway.Mundipagg;
 using MerchantIntegration.Infra.Repository;
 using MerchantIntegration.Infra.SeedWork;
 using MerchantIntegration.Infra.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using Newtonsoft.Json.Serialization;
 using RestSharp;
 using Serilog;
-using Serilog.Core;
 using CustomerService = MerchantIntegration.Core.CustomerService;
 using CustomerServiceInfra = MerchantIntegration.Infra.Gateway.Mundipagg.Service.CustomerService;
 using CustomerModelInfra = MerchantIntegration.Infra.Gateway.Mundipagg.Model.Customer;
@@ -61,7 +47,7 @@ namespace MerchantIntegration.Api
                     cfg.CreateMap<CustomerModelInfra, Customer>()
                         .ForMember(
                             dest => dest.GatewayCustomerId,
-                            origin => origin.MapFrom(a => a.Id)
+                            origin => origin.MapFrom(customer => customer.Id)
                         )
                         .ForMember(
                             dest => dest.Id,
@@ -79,13 +65,13 @@ namespace MerchantIntegration.Api
             Configuration.GetSection("GatewayConfig").Bind(gatewayConfig);
 
 
-            services.AddSingleton(arg =>
+            services.AddSingleton(_ =>
             {
                 var client = new MongoClient(settings.ConnectionString);
                 return client.GetDatabase(settings.DatabaseName);
             });
 
-            services.AddSingleton<IRestRequest>(p =>
+            services.AddSingleton<IRestRequest>(_ =>
             {
                 var request = new RestRequest();
 
@@ -99,36 +85,36 @@ namespace MerchantIntegration.Api
                 return request;
             });
 
-            services.AddSingleton<IRestClient, RestClient>(x => new RestClient(gatewayConfig.Url + "/{endpoint}"));
+            services.AddSingleton<IRestClient, RestClient>(_ => new RestClient(gatewayConfig.Url + "/{endpoint}"));
 
-            services.AddSingleton<IGatewayCustomerService, CustomerServiceInfra>(x =>
+            services.AddSingleton<IGatewayCustomerService, CustomerServiceInfra>(container =>
             {
-                var restRequest = (IRestRequest) x.GetService(typeof(IRestRequest));
-                var restClient = (IRestClient) x.GetService(typeof(IRestClient));
+                var restRequest = (IRestRequest) container.GetService(typeof(IRestRequest));
+                var restClient = (IRestClient) container.GetService(typeof(IRestClient));
                 return new CustomerServiceInfra(restRequest, restClient, mapperConfiguration);
             });
 
-            services.AddSingleton<ICustomerRepository, CustomerRepository>(x =>
+            services.AddSingleton<ICustomerRepository, CustomerRepository>(container =>
             {
-                var connectionMongo = (IMongoDatabase) x.GetService(typeof(IMongoDatabase));
+                var connectionMongo = (IMongoDatabase) container.GetService(typeof(IMongoDatabase));
                 return new CustomerRepository(connectionMongo);
             });
             
-            services.AddSingleton<ILogInfo, LogInfo>(x =>
+            services.AddSingleton<ILogInfo, LogInfo>(_ =>
             {
-                Logger seq = new LoggerConfiguration()
+                var seq = new LoggerConfiguration()
                     .WriteTo.Console()
                     .WriteTo.Seq("http://localhost:655")
                     .CreateLogger();
-                
+
                 return new LogInfo(seq);
             });
 
-            services.AddScoped<ICustomerService>(sp =>
+            services.AddScoped<ICustomerService>(container =>
             {
-                var gatewayService = (IGatewayCustomerService) sp.GetService(typeof(IGatewayCustomerService));
-                var customerRepository = (ICustomerRepository) sp.GetService(typeof(ICustomerRepository));
-                var log = (ILogInfo) sp.GetService(typeof(ILogInfo));
+                var gatewayService = (IGatewayCustomerService) container.GetService(typeof(IGatewayCustomerService));
+                var customerRepository = (ICustomerRepository) container.GetService(typeof(ICustomerRepository));
+                var log = (ILogInfo) container.GetService(typeof(ILogInfo));
                 return new CustomerService(gatewayService, customerRepository, log);
             });
         }
