@@ -72,12 +72,10 @@ namespace MerchantIntegration.Api
             Configuration.GetSection("GatewayConfig").Bind(gatewayConfig);
 
 
-            services.AddSingleton<IMongoDatabase>(p =>
+            services.AddSingleton(arg =>
             {
                 var client = new MongoClient(settings.ConnectionString);
-                var database = client.GetDatabase(settings.DatabaseName);
-
-                return database;
+                return client.GetDatabase(settings.DatabaseName);
             });
 
             services.AddSingleton<IRestRequest>(p =>
@@ -115,7 +113,6 @@ namespace MerchantIntegration.Api
                     .WriteTo.Console()
                     .WriteTo.Seq("http://localhost:655")
                     .CreateLogger();
-
                 
                 return new LogInfo(seq);
             });
