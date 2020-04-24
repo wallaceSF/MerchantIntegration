@@ -10,6 +10,7 @@ using MerchantIntegration.Infra.Repository;
 using MerchantIntegration.Infra.SeedWork;
 using MerchantIntegration.Infra.Service;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,10 @@ using Serilog;
 using CustomerService = MerchantIntegration.Core.CustomerService;
 using CustomerServiceInfra = MerchantIntegration.Infra.Gateway.Mundipagg.Service.CustomerService;
 using CustomerModelInfra = MerchantIntegration.Infra.Gateway.Mundipagg.Model.Customer;
+using HealthChecks.UI;
+using HealthChecks.UI.Client;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+
 
 namespace MerchantIntegration.Api
 {
@@ -104,7 +109,7 @@ namespace MerchantIntegration.Api
             {
                 var seq = new LoggerConfiguration()
                     .WriteTo.Console()
-                    .WriteTo.Seq("http://localhost:655")
+                    .WriteTo.Seq("http://seqteste:80")
                     .CreateLogger();
 
                 return new LogInfo(seq);
@@ -117,6 +122,16 @@ namespace MerchantIntegration.Api
                 var log = (ILogInfo) container.GetService(typeof(ILogInfo));
                 return new CustomerService(gatewayService, customerRepository, log);
             });
+            
+            var serviceProvider = services.BuildServiceProvider();
+            var myService = serviceProvider.GetService<IMongoDatabase>();
+
+
+            services.AddHealthChecks().AddCheck(
+                "Mongo-check",
+                new MongoHeathCheck(myService),
+                HealthStatus.Unhealthy
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,6 +147,23 @@ namespace MerchantIntegration.Api
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    endpoints.MapControllers();
+                    endpoints.MapHealthChecks("/hc");
+                }
+            );
+            
+            
+            
+            app.UseHealthChecks("/healthz",
+                new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

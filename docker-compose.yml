@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+ dotnet31:
+   build:
+     context: ./
+     dockerfile: Dockerfile     
+   container_name: dotnet31
+   command: bash -c "cp -avr . /builddotnet && cd /builddotnet && dotnet restore && dotnet run -p MerchantIntegration.Api"
+   tty: true   
+   volumes:
+     - ./:/app
+   ports:
+     - "5000:5000"
+     - "5001:5001"
+   depends_on:
+     - mongo
+   networks:
+     - monitoramento-network
+ mongo:
+   container_name: mongodev1
+   image: mongo
+   ports:
+     - 27017:27017
+   networks:
+     - monitoramento-network
+ seqteste:
+    image: datalust/seq:latest
+    environment:
+      ACCEPT_EULA: "Y"
+    ports:
+      - "655:80"
+      - "5341:5341" 
+    networks:
+      - monitoramento-network
+    depends_on:
+     - dotnet31
+networks: 
+    monitoramento-network:
+      driver: bridge
