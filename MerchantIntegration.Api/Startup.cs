@@ -21,9 +21,9 @@ using Serilog;
 using CustomerService = MerchantIntegration.Core.CustomerService;
 using CustomerServiceInfra = MerchantIntegration.Infra.Gateway.Mundipagg.Service.CustomerService;
 using CustomerModelInfra = MerchantIntegration.Infra.Gateway.Mundipagg.Model.Customer;
-using HealthChecks.UI;
 using HealthChecks.UI.Client;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Models;
 
 
 namespace MerchantIntegration.Api
@@ -132,17 +132,19 @@ namespace MerchantIntegration.Api
                 new MongoHeathCheck(myService),
                 HealthStatus.Unhealthy
             );
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            //   app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -155,15 +157,20 @@ namespace MerchantIntegration.Api
                     endpoints.MapHealthChecks("/hc");
                 }
             );
-            
-            
-            
-            app.UseHealthChecks("/healthz",
+
+            app.UseHealthChecks("/health",
                 new HealthCheckOptions()
                 {
                     Predicate = _ => true,
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
