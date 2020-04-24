@@ -8,7 +8,6 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MerchantIntegration.Api" t="IncludeRecursive">
         <e p="Contracts" t="Include">
-          <e p="GatewayConfig.cs" t="Include" />
           <e p="IConnectionMongoSettings.cs" t="Include" />
         </e>
         <e p="Controllers" t="Include">
@@ -17,6 +16,8 @@
         <e p="MerchantIntegration.Api.csproj" t="IncludeRecursive" />
         <e p="Model" t="Include">
           <e p="ConnectionMongoSettings.cs" t="Include" />
+          <e p="GatewayConfig.cs" t="Include" />
+          <e p="SeqConfig.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
@@ -24,6 +25,7 @@
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.Production.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

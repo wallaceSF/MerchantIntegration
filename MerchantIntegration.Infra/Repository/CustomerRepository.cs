@@ -14,6 +14,7 @@ namespace MerchantIntegration.Infra.Repository
 
         public new Customer Create(Customer customer)
         {
+            customer.Id = ObjectId.GenerateNewId();
             return base.Create(customer);
         }
 
@@ -21,6 +22,7 @@ namespace MerchantIntegration.Infra.Repository
         {
             var filter = Builders<Customer>.Filter.Eq(customerObject => customerObject.Id, ObjectId.Parse(id));
             var customer = base.Find(filter);
+            
             customer.Id = customer.Id.ToString();
             return customer;
         }
@@ -31,6 +33,11 @@ namespace MerchantIntegration.Infra.Repository
 
             foreach (var customer in listCustomer)
             {
+                if (customer.Id == null)
+                {
+                    continue;
+                }
+                
                 customer.Id = customer.Id.ToString();
             }
             

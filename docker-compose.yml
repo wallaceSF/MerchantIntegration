@@ -2,11 +2,17 @@ version: '3'
 
 services:
  dotnet31:
+   restart: always 
+   environment:
+     - DOTNET_ENVIRONMENT=Production 
+     - AppMerch_SecretKey=secreaqui
+     - AppMerch_GatewayUrl=https://urlaqui
    build:
      context: ./
      dockerfile: Dockerfile     
    container_name: dotnet31
-   command: bash -c "cp -avr . /builddotnet && cd /builddotnet && dotnet restore && dotnet run -p MerchantIntegration.Api"
+   command: bash -c "cp -avr . /builddotnet && cd /builddotnet && dotnet restore --force && dotnet publish MerchantIntegration.Api/MerchantIntegration.Api.csproj -o /app/out && cd /app/out && dotnet MerchantIntegration.Api.dll"
+   #command: bash -c "cp -avr . /builddotnet && cd /builddotnet && dotnet restore --force && dotnet run -p MerchantIntegration.Api"
    tty: true   
    volumes:
      - ./:/app
@@ -33,8 +39,6 @@ services:
       - "5341:5341" 
     networks:
       - monitoramento-network
-    depends_on:
-     - dotnet31
 networks: 
     monitoramento-network:
       driver: bridge

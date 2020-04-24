@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.IO;
 using AutoMapper;
 using MerchantIntegration.Api.Contracts;
 using MerchantIntegration.Api.Model;
@@ -40,12 +42,15 @@ namespace MerchantIntegration.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //configure snakecase request/response
             services.AddControllers().AddJsonOptions(
-                options => {
-                    options.JsonSerializerOptions.PropertyNamingPolicy = 
+                options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy =
                         SnakeCaseNamingPolicy.Instance;
                 });
 
+            //automapper
             var mapperConfiguration = new MapperConfiguration(
                 cfg =>
                 {
@@ -55,21 +60,50 @@ namespace MerchantIntegration.Api
                             origin => origin.MapFrom(customer => customer.Id)
                         )
                         .ForMember(
+                            dest => dest.DocumentUser,
+                            origin => origin.MapFrom(customer => customer.document)
+                        )
+                        .ForMember(
                             dest => dest.Id,
                             origin => origin.Ignore()
                         );
 
-                    cfg.CreateMap<Customer, CustomerModelInfra>();
+                    cfg.CreateMap<Customer, CustomerModelInfra>()
+                        .ForMember(
+                            dest => dest.type,
+                            origin => origin.MapFrom(_ => "individual")
+                        )
+                        .ForMember(
+                        dest => dest.document,
+                        origin => origin.MapFrom(customer => customer.DocumentUser)
+                        );
                 }
             );
 
+            //configuration mongo and gateway
             var settings = new ConnectionMongoSettings();
             Configuration.GetSection("ConnectionMongoSettings").Bind(settings);
 
             var gatewayConfig = new GatewayConfig();
             Configuration.GetSection("GatewayConfig").Bind(gatewayConfig);
+            
+            var seqConfig = new SeqConfig();
+            Configuration.GetSection("SeqConfig").Bind(seqConfig);
 
+            if (String.IsNullOrEmpty(gatewayConfig.SecretKey))
+            {
+                gatewayConfig.SecretKey = Environment.GetEnvironmentVariable("AppMerch_SecretKey");
+            }
+            
+            if (String.IsNullOrEmpty(gatewayConfig.Url))
+            {
+                gatewayConfig.Url = Environment.GetEnvironmentVariable("AppMerch_GatewayUrl");
+            }
 
+            Console.WriteLine(settings.ConnectionString);
+            Console.WriteLine(gatewayConfig.Url);
+
+            // connection mongo and create request    
             services.AddSingleton(_ =>
             {
                 var client = new MongoClient(settings.ConnectionString);
@@ -92,53 +126,61 @@ namespace MerchantIntegration.Api
 
             services.AddSingleton<IRestClient, RestClient>(_ => new RestClient(gatewayConfig.Url + "/{endpoint}"));
 
-            services.AddSingleton<IGatewayCustomerService, CustomerServiceInfra>(container =>
-            {
-                var restRequest = (IRestRequest) container.GetService(typeof(IRestRequest));
-                var restClient = (IRestClient) container.GetService(typeof(IRestClient));
-                return new CustomerServiceInfra(restRequest, restClient, mapperConfiguration);
-            });
-
-            services.AddSingleton<ICustomerRepository, CustomerRepository>(container =>
-            {
-                var connectionMongo = (IMongoDatabase) container.GetService(typeof(IMongoDatabase));
-                return new CustomerRepository(connectionMongo);
-            });
-            
-            services.AddSingleton<ILogInfo, LogInfo>(_ =>
-            {
-                var seq = new LoggerConfiguration()
-                    .WriteTo.Console()
-                    .WriteTo.Seq("http://seqteste:80")
-                    .CreateLogger();
-
-                return new LogInfo(seq);
-            });
-
+            //service core
             services.AddScoped<ICustomerService>(container =>
             {
                 var gatewayService = (IGatewayCustomerService) container.GetService(typeof(IGatewayCustomerService));
                 var customerRepository = (ICustomerRepository) container.GetService(typeof(ICustomerRepository));
                 var log = (ILogInfo) container.GetService(typeof(ILogInfo));
+
                 return new CustomerService(gatewayService, customerRepository, log);
             });
-            
-            var serviceProvider = services.BuildServiceProvider();
-            var myService = serviceProvider.GetService<IMongoDatabase>();
 
+            //services infra
+            services.AddSingleton<IGatewayCustomerService, CustomerServiceInfra>(container =>
+            {
+                var restRequest = (IRestRequest) container.GetService(typeof(IRestRequest));
+                var restClient = (IRestClient) container.GetService(typeof(IRestClient));
+
+                return new CustomerServiceInfra(restRequest, restClient, mapperConfiguration);
+            });
+
+            //repositories
+            services.AddSingleton<ICustomerRepository, CustomerRepository>(container =>
+            {
+                var connectionMongo = (IMongoDatabase) container.GetService(typeof(IMongoDatabase));
+                return new CustomerRepository(connectionMongo);
+            });
+
+            // seq log
+            services.AddSingleton<ILogInfo, LogInfo>(_ =>
+            {
+                // @todo remove url, add json.config
+                var seq = new LoggerConfiguration()
+                    .WriteTo.Console()
+                    .WriteTo.Seq(seqConfig.Url)
+                    .CreateLogger();
+
+                return new LogInfo(seq);
+            });
+
+            //heathCheck
+            var serviceProvider = services.BuildServiceProvider();
+            var mongoService = serviceProvider.GetService<IMongoDatabase>();
 
             services.AddHealthChecks().AddCheck(
                 "Mongo-check",
-                new MongoHeathCheck(myService),
+                new MongoHeathCheck(mongoService),
                 HealthStatus.Unhealthy
             );
-            
-            services.AddSwaggerGen(c =>
+
+            //doc swagger
+            services.AddSwaggerGen(container =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                container.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"});
             });
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -149,7 +191,7 @@ namespace MerchantIntegration.Api
             app.UseRouting();
 
             app.UseAuthorization();
-            
+
             app.UseEndpoints(
                 endpoints =>
                 {
@@ -166,10 +208,7 @@ namespace MerchantIntegration.Api
                 });
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
 
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

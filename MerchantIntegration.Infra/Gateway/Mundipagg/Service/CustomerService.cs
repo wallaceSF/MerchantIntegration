@@ -44,7 +44,7 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Service
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception("erro aqui");
+                throw new Exception("Não foi possível criar customer no gateway");
             }
 
             var customerInfra = JsonConvert.DeserializeObject<CustomerModelMundipagg>(response.Content);
