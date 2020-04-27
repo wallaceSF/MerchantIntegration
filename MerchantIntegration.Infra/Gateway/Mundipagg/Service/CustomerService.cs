@@ -13,6 +13,7 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Service
     public class CustomerService : IGatewayCustomerService
     {
         private readonly IRestClient _restClient;
+        private readonly ILogInfo _logInfo;
         private IRestRequest RestRequest { get; }
         private IConfigurationProvider ConfigurationProvider { get; }
 
@@ -21,9 +22,11 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Service
         public CustomerService(
             IRestRequest restRequest,
             IRestClient restClient,
-            IConfigurationProvider configurationProvider
+            IConfigurationProvider configurationProvider,
+            ILogInfo logInfo
         ) {
             _restClient = restClient;
+            _logInfo = logInfo;
             RestRequest = restRequest;
             ConfigurationProvider = configurationProvider;
 
@@ -44,6 +47,7 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Service
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
+                _logInfo.InfoMessage(response.Content);
                 throw new Exception("Não foi possível criar customer no gateway");
             }
 

@@ -100,22 +100,7 @@ namespace MerchantIntegration.Api
             });
 
             services.AddSingleton<IRestClient>(_ => new RestClient(gatewayConfig.Url + "/{endpoint}"));
-
-            //service core
-            services.AddScoped<ICustomerService, CustomerService>();
-
-            //services infra
-            services.AddSingleton<IGatewayCustomerService, CustomerServiceInfra>(container =>
-            {
-                var restRequest = (IRestRequest) container.GetService(typeof(IRestRequest));
-                var restClient = (IRestClient) container.GetService(typeof(IRestClient));
-
-                return new CustomerServiceInfra(restRequest, restClient, mapperConfiguration);
-            });
-
-            //repositories
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-
+            
             // seq log
             services.AddSingleton<ILogInfo>(_ =>
             {
@@ -126,6 +111,22 @@ namespace MerchantIntegration.Api
 
                 return new LogInfo(seq);
             });
+
+            //service core
+            services.AddScoped<ICustomerService, CustomerService>();
+
+            //services infra
+            services.AddSingleton<IGatewayCustomerService, CustomerServiceInfra>(container =>
+            {
+                var restRequest = (IRestRequest) container.GetService(typeof(IRestRequest));
+                var restClient = (IRestClient) container.GetService(typeof(IRestClient));
+                var logInfo = (ILogInfo) container.GetService(typeof(ILogInfo));
+
+                return new CustomerServiceInfra(restRequest, restClient, mapperConfiguration, logInfo);
+            });
+
+            //repositories
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             //heathCheck
             services
