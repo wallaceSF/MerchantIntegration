@@ -11,8 +11,7 @@ services:
      context: ./
      dockerfile: Dockerfile     
    container_name: dotnet31
-   command: bash -c "cp -avr . /builddotnet && cd /builddotnet && dotnet restore --force && dotnet publish MerchantIntegration.Api/MerchantIntegration.Api.csproj -o /app/out && cd /app/out && dotnet MerchantIntegration.Api.dll"
-   #command: bash -c "cp -avr . /builddotnet && cd /builddotnet && dotnet restore --force && dotnet run -p MerchantIntegration.Api"
+   #command: bash -c "cp -avr . /builddotnet && cd /builddotnet && dotnet restore --force && dotnet publish MerchantIntegration.Api/MerchantIntegration.Api.csproj -o /app/out && cd /app/out && dotnet MerchantIntegration.Api.dll"
    tty: true   
    volumes:
      - ./:/app

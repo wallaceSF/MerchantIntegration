@@ -70,6 +70,9 @@
       <e p="MerchantIntegration.Infra" t="IncludeRecursive">
         <e p="Gateway" t="Include">
           <e p="Mundipagg" t="Include">
+            <e p="Mapper" t="Include">
+              <e p="CustomerMapper.cs" t="Include" />
+            </e>
             <e p="Model" t="Include">
               <e p="Address.cs" t="Include" />
               <e p="Customer.cs" t="Include" />
@@ -89,7 +92,6 @@
           <e p="CustomerRepository.cs" t="Include" />
         </e>
         <e p="SeedWork" t="Include">
-          <e p="MongoHeathCheck.cs" t="Include" />
           <e p="SnakeCaseNamingPolicy.cs" t="Include" />
           <e p="TransformRequestToGateway.cs" t="Include" />
         </e>
