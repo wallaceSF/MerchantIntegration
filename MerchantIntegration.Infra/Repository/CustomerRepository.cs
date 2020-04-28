@@ -15,13 +15,22 @@ namespace MerchantIntegration.Infra.Repository
         public new Customer Create(Customer customer)
         {
             customer.Id = ObjectId.GenerateNewId();
-            return base.Create(customer);
+            
+            var customerObject = base.Create(customer);
+            customerObject.Id = customerObject.Id.ToString();
+            
+            return customerObject;
         }
 
         public Customer Find(string id)
         {
             var filter = Builders<Customer>.Filter.Eq(customerObject => customerObject.Id, ObjectId.Parse(id));
             var customer = base.Find(filter);
+
+            if (customer == null)
+            {
+                return null;
+            }
             
             customer.Id = customer.Id.ToString();
             return customer;

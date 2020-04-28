@@ -24,6 +24,7 @@ using HealthChecks.Uris;
 using MerchantIntegration.Infra.Gateway.Mundipagg.Mapper;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
+using RestSharp.Authenticators;
 using static System.Net.Http.HttpMethod;
 
 
@@ -90,16 +91,18 @@ namespace MerchantIntegration.Api
                 var request = new RestRequest();
 
                 request.AddHeader("Content-Type", "application/json");
-
-                var secretKey = System.Text.Encoding.UTF8.GetBytes($"{gatewayConfig.SecretKey}:");
-                var base64String = Convert.ToBase64String(secretKey);
-
-                request.AddHeader("Authorization", $"Basic {base64String}");
-
                 return request;
             });
 
-            services.AddSingleton<IRestClient>(_ => new RestClient(gatewayConfig.Url + "/{endpoint}"));
+            services.AddSingleton<IRestClient>(_ =>
+            {
+                var restClient = new RestClient(gatewayConfig.Url + "/{endpoint}");
+                restClient.Authenticator = new HttpBasicAuthenticator(gatewayConfig.SecretKey, "");
+                return restClient;
+            });
+            
+            //restSharp
+            SimpleJson.CurrentJsonSerializerStrategy = new SnakeJsonSerializerStrategy();
             
             // seq log
             services.AddSingleton<ILogInfo>(_ =>
@@ -140,7 +143,7 @@ namespace MerchantIntegration.Api
                         options.ExpectHttpCodes(200, 401);
                     },
                     "MundipaggGatewayCheck",
-                    timeout: TimeSpan.FromSeconds(2)
+                    timeout: TimeSpan.FromSeconds(10)
                 );
 
             //doc swagger

@@ -94,6 +94,7 @@
         </e>
         <e p="SeedWork" t="Include">
           <e p="SnakeCaseNamingPolicy.cs" t="Include" />
+          <e p="SnakeJsonSerializerStrategy.cs" t="Include" />
           <e p="TransformRequestToGateway.cs" t="Include" />
         </e>
         <e p="Service" t="Include">

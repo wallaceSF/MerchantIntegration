@@ -38,10 +38,9 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Service
             var mapper = ConfigurationProvider.CreateMapper();
             
             var customerGateway = mapper.Map<Customer, CustomerModelMundipagg>(customer);
-            var objectGeneric = TransformRequestToGateway.TreatObject(customerGateway);
 
             RestRequest.Method = Method.POST;
-            RestRequest.AddJsonBody(objectGeneric);
+            RestRequest.AddJsonBody(customerGateway);
 
             var response = _restClient.Execute(RestRequest);
 

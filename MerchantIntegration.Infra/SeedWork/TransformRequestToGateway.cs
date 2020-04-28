@@ -12,7 +12,7 @@ namespace MerchantIntegration.Infra.SeedWork
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
-            var jsonString = JsonConvert.SerializeObject(
+            var jsonObject = JsonConvert.SerializeObject(
                 objectGeneric,
                 Formatting.Indented,
                 new JsonSerializerSettings
@@ -22,7 +22,7 @@ namespace MerchantIntegration.Infra.SeedWork
                 }
             );
 
-            return jsonString;
+            return jsonObject;
         }
     }
 }
