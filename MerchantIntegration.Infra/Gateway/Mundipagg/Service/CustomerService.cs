@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using AutoMapper;
 using MerchantIntegration.Core.Contracts.Infrastruture.Service;
-using MerchantIntegration.Infra.SeedWork;
 using Newtonsoft.Json;
 using RestSharp;
 using Customer = MerchantIntegration.Core.Entity.Customer;
@@ -17,7 +16,7 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Service
         private IRestRequest RestRequest { get; }
         private IConfigurationProvider ConfigurationProvider { get; }
 
-        private const string Endpoint = "customers";
+        private const string ENDPOINT = "customers";
 
         public CustomerService(
             IRestRequest restRequest,
@@ -27,26 +26,26 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Service
         ) {
             _restClient = restClient;
             _logInfo = logInfo;
-            RestRequest = restRequest;
-            ConfigurationProvider = configurationProvider;
+            this.RestRequest = restRequest;
+            this.ConfigurationProvider = configurationProvider;
 
-            RestRequest.AddUrlSegment("endpoint", Endpoint);
+            this.RestRequest.AddUrlSegment("endpoint", ENDPOINT);
         }
 
         public Customer CreateCustomerAtGateway(Customer customer)
         {
-            var mapper = ConfigurationProvider.CreateMapper();
+            var mapper = this.ConfigurationProvider.CreateMapper();
             
             var customerGateway = mapper.Map<Customer, CustomerModelMundipagg>(customer);
 
-            RestRequest.Method = Method.POST;
-            RestRequest.AddJsonBody(customerGateway);
+            this.RestRequest.Method = Method.POST;
+            this.RestRequest.AddJsonBody(customerGateway);
 
-            var response = _restClient.Execute(RestRequest);
+            var response = this._restClient.Execute(this.RestRequest);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                _logInfo.InfoMessage(response.Content);
+                this._logInfo.InfoMessage(response.Content);
                 throw new Exception("Não foi possível criar customer no gateway");
             }
 

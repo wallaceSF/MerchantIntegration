@@ -17,27 +17,27 @@ namespace MerchantIntegration.Core
             ICustomerRepository customerRepository,
             ILogInfo logInfo
         ) {
-            _customerRepository = customerRepository;
-            _logInfo = logInfo;
-            GatewayService = gatewayService;
+            this._customerRepository = customerRepository;
+            this._logInfo = logInfo;
+            this.GatewayService = gatewayService;
         }
 
         public Customer Find(string id)
         {
-            return _customerRepository.Find(id);
+            return this._customerRepository.Find(id);
         }
 
         public Customer Create(Customer customer)
         {
-            _logInfo.InfoMessage(customer);
+            this._logInfo.InfoMessage(customer);
 
-            var customerCreatedAtGateway = GatewayService.CreateCustomerAtGateway(customer);
-            return _customerRepository.Create(customerCreatedAtGateway);
+            var customerCreatedAtGateway = this.GatewayService.CreateCustomerAtGateway(customer);
+            return this._customerRepository.Create(customerCreatedAtGateway);
         }
 
         public List<Customer> FindAll()
         {
-            return _customerRepository.FindAll();
+            return this._customerRepository.FindAll();
         }
     }
 }

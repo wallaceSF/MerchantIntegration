@@ -15,7 +15,7 @@ namespace MerchantIntegration.Api
     {
         public static void Main(string[] args)
         {
-            var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             if (String.IsNullOrEmpty(environment))
             {

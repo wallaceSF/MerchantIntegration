@@ -11,7 +11,7 @@ namespace MerchantIntegration.Infra.SeedWork
 
         public override string ConvertName(string name)
         {
-            return _newtonsoftSnakeCaseNamingStrategy.GetPropertyName(name, false);
+            return this._newtonsoftSnakeCaseNamingStrategy.GetPropertyName(name, false);
         }
     }
 }

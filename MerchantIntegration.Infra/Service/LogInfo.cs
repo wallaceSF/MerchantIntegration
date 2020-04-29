@@ -9,14 +9,14 @@ namespace MerchantIntegration.Infra.Service
 
         public LogInfo(ILogger log)
         {
-            _log = log;
+            this._log = log;
         }
 
         public void InfoMessage<T>(T objectValue) where T : class
         {
             var objectName = objectValue.GetType().Name;
             var messageString = "message, {@"+objectName+"}!";
-            _log.Information(messageString, objectValue);
+            this._log.Information(messageString, objectValue);
         }
     }
 }

@@ -65,16 +65,6 @@ namespace MerchantIntegration.Api
             var seqConfig = new SeqConfig();
             Configuration.GetSection("SeqConfig").Bind(seqConfig);
 
-            if (String.IsNullOrEmpty(gatewayConfig.SecretKey))
-            {
-                gatewayConfig.SecretKey = Environment.GetEnvironmentVariable("AppMerch_SecretKey");
-            }
-
-            if (String.IsNullOrEmpty(gatewayConfig.Url))
-            {
-                gatewayConfig.Url = Environment.GetEnvironmentVariable("AppMerch_GatewayUrl");
-            }
-
             Console.WriteLine(settings.ConnectionString);
             Console.WriteLine(gatewayConfig.Url);
             Console.WriteLine(gatewayConfig.SecretKey);

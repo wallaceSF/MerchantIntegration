@@ -2,8 +2,8 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Model
 {
     public class MobilePhone
     {
-        public string country_code { get; set; }
-        public string area_code { get; set; }
-        public string number { get; set; }
+        public string CountryCode { get; set; }
+        public string AreaCode { get; set; }
+        public string Number { get; set; }
     }
 }

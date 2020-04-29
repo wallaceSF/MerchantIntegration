@@ -14,7 +14,7 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Mapper
                 )
                 .ForMember(
                     dest => dest.DocumentUser,
-                    origin => origin.MapFrom(customer => customer.document)
+                    origin => origin.MapFrom(customer => customer.Document)
                 )
                 .ForMember(
                     dest => dest.Id,
@@ -23,11 +23,11 @@ namespace MerchantIntegration.Infra.Gateway.Mundipagg.Mapper
 
             CreateMap<Customer, CustomerModelInfra>()
                 .ForMember(
-                    dest => dest.type,
+                    dest => dest.Type,
                     origin => origin.MapFrom(_ => "individual")
                 )
                 .ForMember(
-                    dest => dest.document,
+                    dest => dest.Document,
                     origin => origin.MapFrom(customer => customer.DocumentUser)
                 );
         }

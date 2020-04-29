@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using MerchantIntegration.Core.Contracts.Domain.Service;
 using MerchantIntegration.Core.Entity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +13,13 @@ namespace MerchantIntegration.Api.Controllers
 
         public CustomerController(ICustomerService coreService)
         {
-            CoreService = coreService;
+            this.CoreService = coreService;
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            var customer = CoreService.Find(id);
+            var customer = this.CoreService.Find(id);
 
             if (customer == null)
             {
@@ -34,13 +32,13 @@ namespace MerchantIntegration.Api.Controllers
         [HttpGet]
         public List<Customer> GetAll()
         {
-            return CoreService.FindAll();
+            return this.CoreService.FindAll();
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] Customer customer)
         {
-            var customerObject = CoreService.Create(customer);
+            var customerObject = this.CoreService.Create(customer);
             return Created(customerObject.Id, customerObject);
         }
     }

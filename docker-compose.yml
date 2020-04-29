@@ -4,9 +4,9 @@ services:
  dotnet31:
    restart: always 
    environment:
-     - DOTNET_ENVIRONMENT=Production 
-     - AppMerch_SecretKey=secreaqui
-     - AppMerch_GatewayUrl=https://urlaqui
+     - ASPNETCORE_ENVIRONMENT=Production 
+     - AppMerch_GatewayConfig__SecretKey=secreaqui
+     - AppMerch_GatewayConfig__Url=https://urlaqui
    build:
      context: ./
      dockerfile: Dockerfile     
